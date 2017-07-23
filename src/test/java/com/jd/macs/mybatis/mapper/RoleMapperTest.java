@@ -45,4 +45,14 @@ public class RoleMapperTest extends BaseTest {
         Assert.assertEquals(1, roleList.size());
         Assert.assertEquals("admin", roleList.get(0).getRoleName());
     }
+
+    @Test
+    public void testFindRole(){
+        RoleMapper roleMapper = getSqlSession().getMapper(RoleMapper.class);
+
+        Role role = roleMapper.findRole("admin");
+        Assert.assertNotNull(role);
+        Assert.assertEquals("super role", role.getNote());
+        Assert.assertEquals(7L, role.getId().longValue());
+    }
 }

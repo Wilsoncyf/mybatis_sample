@@ -16,4 +16,6 @@ public interface RoleMapper {
 
     @Select("select id, role_name as roleName, note from t_role where id = 7")
     List<Role> getAllRoles();
+
+    Role findRole(String roleName);
 }
