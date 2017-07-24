@@ -10,9 +10,15 @@
         <package name="com.jd.macs.mybatis.po" />
     </typeAliases>
 
-    <!--<typeHandlers>-->
-        <!--<typeHandler handler="com.jd.macs.mybatis.typehandler.MyStringTypeHandler" />-->
-    <!--</typeHandlers>-->
+    <typeHandlers>
+        <!--<typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler"-->
+            <!--javaType="com.jd.macs.mybatis.enums.Sex" jdbcType="SMALLINT" />-->
+        <!--<typeHandler handler="org.apache.ibatis.type.EnumTypeHandler" javaType="com.jd.macs.mybatis.enums.Sex"-->
+            <!--jdbcType="VARCHAR" />-->
+
+        <!--<typeHandler handler="com.jd.macs.mybatis.typehandler.MyEnumTypeHandler"-->
+                     <!--jdbcType="SMALLINT" javaType="com.jd.macs.mybatis.enums.Sex" />-->
+    </typeHandlers>
 
     <environments default="development">
         <environment id="development">
@@ -28,5 +34,6 @@
 
     <mappers>
         <mapper resource="mappers/RoleMapper.xml" />
+        <mapper resource="mappers/UserMapper.xml" />
     </mappers>
 </configuration>
