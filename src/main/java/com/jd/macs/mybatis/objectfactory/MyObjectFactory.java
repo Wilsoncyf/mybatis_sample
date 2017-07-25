@@ -1,8 +1,6 @@
 package com.jd.macs.mybatis.objectfactory;
 
-import com.jd.macs.mybatis.typehandler.MyEnumTypeHandler;
 import org.apache.ibatis.reflection.factory.DefaultObjectFactory;
-import org.apache.ibatis.reflection.factory.ObjectFactory;
 
 import java.util.List;
 import java.util.Properties;
@@ -32,6 +30,6 @@ public class MyObjectFactory extends DefaultObjectFactory {
 
     public <T> boolean isCollection(Class<T> aClass) {
         log.info("isCollection : " + aClass.getName());
-        return isCollection(aClass);
+        return super.isCollection(aClass);
     }
 }

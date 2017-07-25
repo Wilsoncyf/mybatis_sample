@@ -6,6 +6,10 @@
 
     <properties resource="db.properties" />
 
+    <!--<settings>-->
+        <!--<setting name="autoMappingBehavior" value="NONE" />-->
+    <!--</settings>-->
+
     <typeAliases>
         <package name="com.jd.macs.mybatis.po" />
     </typeAliases>
@@ -16,14 +20,16 @@
         <!--<typeHandler handler="org.apache.ibatis.type.EnumTypeHandler" javaType="com.jd.macs.mybatis.enums.Sex"-->
             <!--jdbcType="VARCHAR" />-->
 
-        <!--<typeHandler handler="com.jd.macs.mybatis.typehandler.MyEnumTypeHandler"-->
-                     <!--jdbcType="SMALLINT" javaType="com.jd.macs.mybatis.enums.Sex" />-->
+        <typeHandler handler="com.jd.macs.mybatis.typehandler.MyEnumTypeHandler"
+                     jdbcType="SMALLINT" javaType="com.jd.macs.mybatis.enums.Sex" />
     </typeHandlers>
+    
+    <!--<objectFactory type="com.jd.macs.mybatis.objectfactory.MyObjectFactory" />-->
 
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC" />
-            <dataSource type="POOLED" >
+            <dataSource type="com.jd.macs.mybatis.database.DbcpDataSourceFactory" >
                 <property name="driver" value="${db.driver}" />
                 <property name="url" value="${db.url}" />
                 <property name="username" value="${db.username}" />
@@ -31,9 +37,14 @@
             </dataSource>
         </environment>
     </environments>
+    
+    <databaseIdProvider type="com.jd.macs.mybatis.databaseIdprovider.MydatabaseIdProvider">
+        <property name="MYSQL" value="mysql" />
+    </databaseIdProvider>
 
     <mappers>
         <mapper resource="mappers/RoleMapper.xml" />
         <mapper resource="mappers/UserMapper.xml" />
+        <!--<mapper class="com.jd.macs.mybatis.mapper.UserMapper" />-->
     </mappers>
 </configuration>

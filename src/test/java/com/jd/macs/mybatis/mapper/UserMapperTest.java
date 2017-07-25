@@ -1,12 +1,9 @@
 package com.jd.macs.mybatis.mapper;
 
 import com.jd.macs.mybatis.enums.Sex;
-import com.jd.macs.mybatis.po.Role;
 import com.jd.macs.mybatis.po.User;
 import org.junit.Assert;
 import org.junit.Test;
-
-import java.util.List;
 
 /**
  * Created by machangsheng on 17/7/23.
@@ -34,7 +31,7 @@ public class UserMapperTest extends BaseTest {
     public void testGetUser(){
         UserMapper userMapper = getSqlSession().getMapper(UserMapper.class);
 
-        User user = userMapper.getUser(3L);
+        User user = userMapper.getUser(1L);
 
         Assert.assertEquals("tangxu", user.getUserName());
         Assert.assertEquals(Sex.FEMALE, user.getSex());

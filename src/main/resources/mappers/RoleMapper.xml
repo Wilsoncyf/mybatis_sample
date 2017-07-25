@@ -10,9 +10,15 @@
         where id = #{id}
     </select>
     
-    <insert id="insertRole" parameterType="role">
-        insert into t_role(role_name, note)
-        values (#{roleName}, #{note})
+    <insert id="insertRole" parameterType="role"
+            useGeneratedKeys="true"
+            keyProperty="id">
+        <selectKey keyProperty="id" resultType="long" order="BEFORE">
+            select if(max(id) is null, 1, max(id) + 2)
+            as newId from t_role
+        </selectKey>
+        insert into t_role(id, role_name, note)
+        values (#{id}, #{roleName}, #{note})
     </insert>
 
     <delete id="deleteRole" parameterType="long">
@@ -36,4 +42,39 @@
         where role_name like concat('%',
         #{roleName}, '%')
     </select>
+
+    <select id="findRoleByMap" parameterType="map" resultMap="roleMap">
+        select id, role_name, note from t_role
+        where role_name like concat('%',
+        #{roleName}, '%')
+        and note like concat('%',#{note},'%')
+    </select>
+
+    <select id="findRoleByAnnotation" resultMap="roleMap">
+        select id, role_name, note from t_role
+        where role_name like concat('%',
+        #{roleName}, '%')
+        and note like concat('%',#{note},'%')
+    </select>
+
+    <select id="findRoleByParams"
+            parameterType="com.jd.macs.mybatis.params.RoleParam"
+            resultMap="roleMap">
+        select id, role_name, note from t_role
+        where role_name like concat('%',
+        #{roleName}, '%')
+        and note like concat('%',#{note},'%')
+    </select>
+
+    <update id="updateRole" parameterType="role">
+        update t_role
+        set role_name = #{roleName},
+            role = #{role}
+        where id = #{id}
+    </update>
+
+    <delete id="delete">
+        delete from ${tableName} where id = #{id}
+    </delete>
+
 </mapper>

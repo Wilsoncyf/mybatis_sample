@@ -26,10 +26,18 @@
     </resultMap>
 
 
-    <select id="getUser" parameterType="long" resultMap="userMap">
-        select id, user_name, cnname, birthday, sex, email, mobile, note
-        from t_user
+    <select id="getUser" parameterType="long" resultMap="userMap"
+            databaseId="mysql">
+        select
+          <include refid="user_columns">
+              <property name="prefix" value="r" />
+          </include>
+        from t_user r
         where
         id = #{id}
     </select>
+
+    <sql id="user_columns">
+        ${prefix}.id, user_name, cnname, birthday, sex, email, mobile, note
+    </sql>
 </mapper>
