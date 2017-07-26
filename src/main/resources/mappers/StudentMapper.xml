@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jd.macs.mybatis.mapper.StudentMapper">
+    
+    <insert id="insertStudent" parameterType="student">
+        insert into t_student(cnname, sex, note)
+        values (#{cnname}, #{birthday}, #{sex,
+        typeHandler=com.jd.macs.mybatis.typehandler.MyEnumTypeHandler},
+        #{email, typeHandler=com.jd.macs.mybatis.typehandler.MyStringTypeHandler}, #{mobile}, #{note})
+    </insert>
+    
+    <resultMap id="userMap" type="user">
+        <id column="id" property="id" javaType="long" jdbcType="BIGINT" />
+        <result column="user_name" property="userName" javaType="string" jdbcType="VARCHAR" />
+        <result column="cnname" property="cnname" javaType="string" jdbcType="VARCHAR" />
+        <result column="birthday" property="birthday" javaType="string" jdbcType="VARCHAR" />
+        <result column="sex" property="sex" javaType="com.jd.macs.mybatis.enums.Sex" jdbcType="SMALLINT"
+            typeHandler="com.jd.macs.mybatis.typehandler.MyEnumTypeHandler" />
+        <result column="email" property="email" javaType="string" jdbcType="VARCHAR"
+            typeHandler="com.jd.macs.mybatis.typehandler.MyStringTypeHandler" />
+        <result column="mobile" property="mobile" javaType="string" jdbcType="VARCHAR" />
+        <result column="note" property="note" jdbcType="VARCHAR" javaType="string" />
+    </resultMap>
+
+
+    <select id="getUser" parameterType="long" resultMap="userMap"
+            databaseId="mysql">
+        select
+          <include refid="user_columns">
+              <property name="prefix" value="r" />
+          </include>
+        from t_user r
+        where
+        id = #{id}
+    </select>
+
+    <sql id="user_columns">
+        ${prefix}.id, user_name, cnname, birthday, sex, email, mobile, note
+    </sql>
+</mapper>
